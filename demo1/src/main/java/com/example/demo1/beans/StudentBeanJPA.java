@@ -28,15 +28,15 @@ public class StudentBeanJPA {
     private List<Long> selectedKursaiIds = new ArrayList<>();
 
     public List<Studentas> getAllStudents() {
-        return studentDAO.getAll(); // JPA: em.createQuery("SELECT s FROM Studentas s", ...)
+        return studentDAO.getAll();
     }
 
     public List<Grupe> getAllGroups() {
-        return grupeDAO.getAll();   // JPA: em.createQuery("SELECT g FROM Grupe g", ...)
+        return grupeDAO.getAll();
     }
 
     public List<PasirenkamasKursas> getAllKursai() {
-        return kursasDAO.getAll();  // JPA: em.createQuery("SELECT k FROM PasirenkamasKursas k", ...)
+        return kursasDAO.getAll();
     }
 
     public String createStudent() {
@@ -46,7 +46,6 @@ public class StudentBeanJPA {
             newStudent.setGrupe(g);
         }
 
-        // Surandame kursus pagal ID ir priskiriame studentui
         List<PasirenkamasKursas> pasirenkami = new ArrayList<>();
         for (Long kursasId : selectedKursaiIds) {
             PasirenkamasKursas k = kursasDAO.find(kursasId);
@@ -54,17 +53,13 @@ public class StudentBeanJPA {
         }
         newStudent.setPasirenkamiKursai(pasirenkami);
 
-        // Sukuriame naują studentą JPA būdu
         studentDAO.create(newStudent);
 
-        // Išvalome formos reikšmes
         newStudent = new Studentas();
         selectedGrupeId = null;
         selectedKursaiIds.clear();
         return null;
     }
-
-    // -- Getteriai / Setteriai
 
     public Studentas getNewStudent() {
         return newStudent;

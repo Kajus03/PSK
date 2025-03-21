@@ -47,7 +47,6 @@ public class StudentBeanMyBatis {
         return null;
     }
 
-    // Getteriai / Setteriai
     public Studentas getNewStudent() { return newStudent; }
     public void setNewStudent(Studentas newStudent) { this.newStudent = newStudent; }
     public Long getSelectedGrupeId() { return selectedGrupeId; }

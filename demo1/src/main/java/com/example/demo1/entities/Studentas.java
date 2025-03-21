@@ -26,14 +26,12 @@ public class Studentas implements Serializable {
             inverseJoinColumns = @JoinColumn(name = "KURSAS_ID"))
     private List<PasirenkamasKursas> pasirenkamiKursai = new ArrayList<>();
 
-    // Konstruktoriai
     public Studentas() {}
     public Studentas(String vardas, String pavadinimas) {
         this.vardas = vardas;
         this.pavadinimas = pavadinimas;
     }
 
-    // Getteriai ir setteriai
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
     public String getVardas() { return vardas; }

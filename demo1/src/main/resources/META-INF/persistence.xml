@@ -8,29 +8,22 @@
     <persistence-unit name="DemoPersistenceUnit" transaction-type="JTA">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 
-        <!-- WildFly duomenų šaltinis -->
         <jta-data-source>java:/DemoDS</jta-data-source>
 
-        <!-- Registruojame JPA entitetus -->
         <class>com.example.demo1.entities.Grupe</class>
         <class>com.example.demo1.entities.Studentas</class>
         <class>com.example.demo1.entities.PasirenkamasKursas</class>
 
         <properties>
-            <!-- DB dialektas -->
             <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/>
 
-            <!-- Automatinis lentelių kūrimas/atnaujinimas -->
             <property name="hibernate.hbm2ddl.auto" value="update"/>
 
-            <!-- SQL parodymas ir formatavimas -->
             <property name="hibernate.show_sql" value="true"/>
             <property name="hibernate.format_sql" value="true"/>
 
-            <!-- Esminis parametras, leidžiantis naudoti LAZY inicializavimą net užsidarius sesijai -->
             <property name="hibernate.enable_lazy_load_no_trans" value="true"/>
 
-            <!-- JDBC metadata užklausų optimizacija -->
             <property name="hibernate.temp.use_jdbc_metadata_defaults" value="false"/>
         </properties>
     </persistence-unit>

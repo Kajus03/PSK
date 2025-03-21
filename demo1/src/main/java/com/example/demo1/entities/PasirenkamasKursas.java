@@ -18,13 +18,11 @@ public class PasirenkamasKursas implements Serializable {
     @ManyToMany(mappedBy = "pasirenkamiKursai", fetch = FetchType.LAZY)
     private List<Studentas> studentai = new ArrayList<>();
 
-    // Konstruktoriai
     public PasirenkamasKursas() {}
     public PasirenkamasKursas(String pavadinimas) {
         this.pavadinimas = pavadinimas;
     }
 
-    // Getteriai ir setteriai
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
     public String getPavadinimas() { return pavadinimas; }

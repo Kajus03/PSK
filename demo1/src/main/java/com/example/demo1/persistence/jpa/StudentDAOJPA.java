@@ -17,8 +17,6 @@ public class StudentDAOJPA {
     }
 
     public List<Studentas> getAll() {
-        // Naudojame DISTINCT, kad pašalintume dublikatus,
-        // ir LEFT JOIN FETCH, kad būtų užkrauti pasirenkamiKursai kolekcijos elementai.
         String jpql = "SELECT DISTINCT s FROM Studentas s LEFT JOIN FETCH s.pasirenkamiKursai";
         return em.createQuery(jpql, Studentas.class).getResultList();
     }

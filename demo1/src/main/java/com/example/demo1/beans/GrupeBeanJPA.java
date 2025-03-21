@@ -23,10 +23,9 @@ public class GrupeBeanJPA {
     public String createGrupe() {
         grupeDAO.create(newGrupe);
         newGrupe = new Grupe();
-        return null; // liekame tame pačiame puslapyje
+        return null;
     }
 
-    // Getteriai / Setteriai
 
     public Grupe getNewGrupe() {
         return newGrupe;
