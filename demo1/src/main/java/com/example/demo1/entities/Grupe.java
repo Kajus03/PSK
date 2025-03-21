@@ -20,14 +20,12 @@ public class Grupe implements Serializable {
     @OneToMany(mappedBy = "grupe", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Studentas> studentai = new ArrayList<>();
 
-    // Konstruktoriai
     public Grupe() {}
     public Grupe(int kursas, String specialybe) {
         this.kursas = kursas;
         this.specialybe = specialybe;
     }
 
-    // Getteriai ir setteriai
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
     public int getKursas() { return kursas; }

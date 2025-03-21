@@ -26,8 +26,6 @@ public class KursasBeanJPA {
         return null;
     }
 
-    // Getteriai / Setteriai
-
     public PasirenkamasKursas getNewKursas() {
         return newKursas;
     }
