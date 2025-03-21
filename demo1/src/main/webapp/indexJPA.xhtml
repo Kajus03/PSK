@@ -1,0 +1,118 @@
+<!-- indexJPA.xhtml -->
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+    <title>Puslapis – JPA</title>
+</h:head>
+<h:body>
+    <h1>Visi duomenys (JPA)</h1>
+
+    <!-- Nuoroda atgal į MyBatis variantą -->
+    <h:link value="Išbandyti MyBatis" outcome="index.xhtml"/>
+    <br/><br/>
+
+    <!-- Grupės skiltis -->
+    <h2>Grupės</h2>
+    <h:dataTable value="#{grupeBeanJPA.allGroups}" var="g">
+        <h:column>
+            <f:facet name="header">ID</f:facet>
+            #{g.id}
+        </h:column>
+        <h:column>
+            <f:facet name="header">Kursas</f:facet>
+            #{g.kursas}
+        </h:column>
+        <h:column>
+            <f:facet name="header">Specialybė</f:facet>
+            #{g.specialybe}
+        </h:column>
+    </h:dataTable>
+
+    <h3>Pridėti naują grupę</h3>
+    <h:form>
+        <h:outputLabel for="kursas" value="Kursas: " />
+        <h:inputText id="kursas" value="#{grupeBeanJPA.newGrupe.kursas}" />
+        <br/><br/>
+        <h:outputLabel for="spec" value="Specialybė: " />
+        <h:inputText id="spec" value="#{grupeBeanJPA.newGrupe.specialybe}" />
+        <br/><br/>
+        <h:commandButton value="Saugoti" action="#{grupeBeanJPA.createGrupe}" />
+    </h:form>
+
+    <hr/>
+
+    <!-- Kursai skiltis -->
+    <h2>Kursai</h2>
+    <h:dataTable value="#{kursasBeanJPA.allKursai}" var="c">
+        <h:column>
+            <f:facet name="header">ID</f:facet>
+            #{c.id}
+        </h:column>
+        <h:column>
+            <f:facet name="header">Pavadinimas</f:facet>
+            #{c.pavadinimas}
+        </h:column>
+    </h:dataTable>
+
+    <h3>Pridėti naują kursą</h3>
+    <h:form>
+        <h:outputLabel for="pav" value="Pavadinimas: " />
+        <h:inputText id="pav" value="#{kursasBeanJPA.newKursas.pavadinimas}" />
+        <br/><br/>
+        <h:commandButton value="Saugoti" action="#{kursasBeanJPA.createKursas}" />
+    </h:form>
+
+    <hr/>
+
+    <!-- Studentų skiltis -->
+    <h2>Studentai</h2>
+    <h:dataTable value="#{studentBeanJPA.allStudents}" var="s">
+        <h:column>
+            <f:facet name="header">ID</f:facet>
+            #{s.id}
+        </h:column>
+        <h:column>
+            <f:facet name="header">Vardas</f:facet>
+            #{s.vardas}
+        </h:column>
+        <h:column>
+            <f:facet name="header">Pavadinimas</f:facet>
+            #{s.pavadinimas}
+        </h:column>
+        <h:column>
+            <f:facet name="header">Grupė</f:facet>
+            #{s.grupe != null ? s.grupe.specialybe : 'Nėra'}
+        </h:column>
+        <h:column>
+            <f:facet name="header">Kursai</f:facet>
+            #{s.pasirenkamiKursai.size()}
+        </h:column>
+    </h:dataTable>
+
+    <h3>Pridėti naują studentą</h3>
+    <h:form>
+        <h:outputLabel for="vardas" value="Vardas: " />
+        <h:inputText id="vardas" value="#{studentBeanJPA.newStudent.vardas}" />
+        <br/><br/>
+        <h:outputLabel for="pav" value="Pavadinimas: " />
+        <h:inputText id="pav" value="#{studentBeanJPA.newStudent.pavadinimas}" />
+        <br/><br/>
+        <h:outputLabel for="grupe" value="Grupė: " />
+        <h:selectOneMenu id="grupe" value="#{studentBeanJPA.selectedGrupeId}" required="true">
+            <f:selectItem itemValue="" itemLabel="-- Pasirinkite grupę --" noSelectionOption="true" />
+            <f:selectItems value="#{studentBeanJPA.allGroups}" var="g"
+                           itemValue="#{g.id}" itemLabel="#{g.specialybe} (#{g.kursas})" />
+        </h:selectOneMenu>
+        <br/><br/>
+        <h:outputLabel value="Kursai: " />
+        <h:selectManyCheckbox value="#{studentBeanJPA.selectedKursaiIds}">
+            <f:selectItems value="#{studentBeanJPA.allKursai}" var="k"
+                           itemValue="#{k.id}" itemLabel="#{k.pavadinimas}" />
+        </h:selectManyCheckbox>
+        <br/><br/>
+        <h:commandButton value="Saugoti" action="#{studentBeanJPA.createStudent}" />
+    </h:form>
+
+</h:body>
+</html>

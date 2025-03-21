@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo1.persistence.mybatis.GrupeMapper">
+    <resultMap id="GrupeResultMap" type="com.example.demo1.entities.Grupe">
+        <id property="id" column="ID"/>
+        <result property="kursas" column="KURSAS"/>
+        <result property="specialybe" column="SPECIALYBE"/>
+    </resultMap>
+
+    <select id="selectAllGrupe" resultMap="GrupeResultMap">
+        SELECT * FROM GRUPE
+    </select>
+
+    <select id="selectGrupeById" resultMap="GrupeResultMap" parameterType="long">
+        SELECT * FROM GRUPE WHERE ID = #{id}
+    </select>
+
+    <insert id="insertGrupe" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO GRUPE (KURSAS, SPECIALYBE)
+        VALUES (#{kursas}, #{specialybe})
+    </insert>
+</mapper>

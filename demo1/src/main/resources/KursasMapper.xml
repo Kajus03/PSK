@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo1.persistence.mybatis.KursasMapper">
+    <resultMap id="KursasResultMap" type="com.example.demo1.entities.PasirenkamasKursas">
+        <id property="id" column="ID"/>
+        <result property="pavadinimas" column="PAVADINIMAS"/>
+        <collection property="studentai" ofType="com.example.demo1.entities.Studentas"
+                    select="com.example.demo1.persistence.mybatis.StudentasMapper.selectStudentasByKursasId"
+                    column="ID"/>
+    </resultMap>
+
+    <select id="selectAllKursas" resultMap="KursasResultMap">
+        SELECT * FROM PASIRENKAMAS_KURSAS
+    </select>
+
+    <select id="selectKursasById" resultMap="KursasResultMap" parameterType="long">
+        SELECT * FROM PASIRENKAMAS_KURSAS WHERE ID = #{id}
+    </select>
+
+    <insert id="insertKursas" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO PASIRENKAMAS_KURSAS (PAVADINIMAS)
+        VALUES (#{pavadinimas})
+    </insert>
+
+    <select id="selectKursaiByStudentId" resultMap="KursasResultMap" parameterType="long">
+        SELECT pk.*
+        FROM PASIRENKAMAS_KURSAS pk
+        JOIN STUDENTAS_KURSAS sk ON pk.ID = sk.KURSAS_ID
+        WHERE sk.STUDENTAS_ID = #{id}
+    </select>
+</mapper>

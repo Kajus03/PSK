@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="SqlDialectMappings">
+    <file url="file://$PROJECT_DIR$/demo1/src/main/resources/GrupeMapper.xml" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/demo1/src/main/resources/KursasMapper.xml" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/demo1/src/main/resources/StudentasMapper.xml" dialect="GenericSQL" />
+  </component>
+</project>

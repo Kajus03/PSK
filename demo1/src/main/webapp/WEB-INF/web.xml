@@ -1,0 +1,30 @@
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
+                             http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+         version="3.1">
+
+    <display-name>Demo App</display-name>
+    <context-param>
+        <param-name>javax.faces.CONFIG_FILES</param-name>
+        <param-value>/GrupeMapper.xml</param-value>
+    </context-param>
+
+    <!-- Kad .xhtml failus apdorotų JSF -->
+    <servlet>
+        <servlet-name>Faces Servlet</servlet-name>
+        <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <servlet-mapping>
+        <!-- .xhtml bus perleidžiami per FacesServlet -->
+        <servlet-name>Faces Servlet</servlet-name>
+        <url-pattern>*.xhtml</url-pattern>
+    </servlet-mapping>
+
+    <!-- (Pasirinktinai) Kad be pavadinimo rodytų index.xhtml -->
+    <welcome-file-list>
+        <welcome-file>indexJPA.xhtml</welcome-file>
+    </welcome-file-list>
+</web-app>
