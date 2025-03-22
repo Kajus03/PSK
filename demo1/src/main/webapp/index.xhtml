@@ -1,17 +1,36 @@
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 <h:head>
    <title>Vienas puslapis – MyBatis</title>
+   <style>
+      .table {
+         border-collapse: collapse;
+         width: 100%;
+         margin-bottom: 20px;
+      }
+      .table th {
+         background-color: #f2f2f2;
+         text-align: left;
+         padding: 8px;
+         border: 1px solid #ddd;
+      }
+      .table td {
+         border: 1px solid #ddd;
+         padding: 8px;
+      }
+   </style>
 </h:head>
 <h:body>
-   <h1>Visi duomenys viename puslapyje (MyBatis)</h1>
+   <h1>MyBatis</h1>
 
    <h:link value="Išbandyti JPA" outcome="indexJPA.xhtml"/>
    <br/><br/>
 
    <h2>Grupės</h2>
-   <h:dataTable value="#{grupeBeanMyBatis.allGroups}" var="g">
+   <h:dataTable value="#{grupeBeanMyBatis.allGroups}" var="g" styleClass="table">
       <h:column>
          <f:facet name="header">ID</f:facet>
          #{g.id}
@@ -25,6 +44,7 @@
          #{g.specialybe}
       </h:column>
    </h:dataTable>
+
    <h3>Pridėti naują grupę</h3>
    <h:form>
       <h:outputLabel for="kursas" value="Kursas: " />
@@ -39,7 +59,7 @@
    <hr/>
 
    <h2>Kursai</h2>
-   <h:dataTable value="#{kursasBeanMyBatis.allKursai}" var="k">
+   <h:dataTable value="#{kursasBeanMyBatis.allKursai}" var="k" styleClass="table">
       <h:column>
          <f:facet name="header">ID</f:facet>
          #{k.id}
@@ -49,6 +69,7 @@
          #{k.pavadinimas}
       </h:column>
    </h:dataTable>
+
    <h3>Pridėti naują kursą</h3>
    <h:form>
       <h:outputLabel for="pav" value="Pavadinimas: " />
@@ -60,7 +81,7 @@
    <hr/>
 
    <h2>Studentai</h2>
-   <h:dataTable value="#{studentBeanMyBatis.allStudents}" var="s">
+   <h:dataTable value="#{studentBeanMyBatis.allStudents}" var="s" styleClass="table">
       <h:column>
          <f:facet name="header">ID</f:facet>
          #{s.id}
@@ -69,9 +90,10 @@
          <f:facet name="header">Vardas</f:facet>
          #{s.vardas}
       </h:column>
+      <!-- Čia stulpelis "Pavardė" -->
       <h:column>
-         <f:facet name="header">Pavadinimas</f:facet>
-         #{s.pavadinimas}
+         <f:facet name="header">Pavardė</f:facet>
+         #{s.pavarde}
       </h:column>
       <h:column>
          <f:facet name="header">Grupė</f:facet>
@@ -79,17 +101,24 @@
       </h:column>
       <h:column>
          <f:facet name="header">Kursai</f:facet>
-         #{s.pasirenkamiKursai.size()}
+         <h:panelGroup>
+            <ui:repeat value="#{s.pasirenkamiKursai}" var="kursas">
+               #{kursas.pavadinimas}<br/>
+            </ui:repeat>
+         </h:panelGroup>
       </h:column>
    </h:dataTable>
+
    <h3>Pridėti naują studentą</h3>
    <h:form>
       <h:outputLabel for="vardas" value="Vardas: " />
       <h:inputText id="vardas" value="#{studentBeanMyBatis.newStudent.vardas}" />
       <br/><br/>
-      <h:outputLabel for="pav" value="Pavadinimas: " />
-      <h:inputText id="pav" value="#{studentBeanMyBatis.newStudent.pavadinimas}" />
+      <!-- Čia laukas "Pavardė" -->
+      <h:outputLabel for="pavarde" value="Pavardė: " />
+      <h:inputText id="pavarde" value="#{studentBeanMyBatis.newStudent.pavarde}" />
       <br/><br/>
+
       <h:outputLabel for="grupe" value="Grupė: " />
       <h:selectOneMenu id="grupe" value="#{studentBeanMyBatis.selectedGrupeId}" required="true">
          <f:selectItem itemValue="" itemLabel="-- Pasirinkite grupę --" noSelectionOption="true" />
@@ -97,12 +126,14 @@
                         itemValue="#{g.id}" itemLabel="#{g.specialybe} (kursas #{g.kursas})" />
       </h:selectOneMenu>
       <br/><br/>
+
       <h:outputLabel value="Kursai: " />
       <h:selectManyCheckbox value="#{studentBeanMyBatis.selectedKursaiIds}">
          <f:selectItems value="#{studentBeanMyBatis.allKursai}" var="c"
                         itemValue="#{c.id}" itemLabel="#{c.pavadinimas}" />
       </h:selectManyCheckbox>
       <br/><br/>
+
       <h:commandButton value="Saugoti" action="#{studentBeanMyBatis.createStudent}" />
    </h:form>
 </h:body>

@@ -6,31 +6,41 @@
     <resultMap id="StudentasResultMap" type="com.example.demo1.entities.Studentas">
         <id property="id" column="ID"/>
         <result property="vardas" column="VARDAS"/>
-        <result property="pavadinimas" column="PAVADINIMAS"/>
-        <association property="grupe" javaType="com.example.demo1.entities.Grupe" column="GRUPE_ID"
+        <result property="pavarde" column="PAVARDE"/>
+
+        <association property="grupe" javaType="com.example.demo1.entities.Grupe"
+                     column="GRUPE_ID"
                      select="com.example.demo1.persistence.mybatis.GrupeMapper.selectGrupeById"/>
-        <collection property="pasirenkamiKursai" ofType="com.example.demo1.entities.PasirenkamasKursas" column="ID"
+        <collection property="pasirenkamiKursai"
+                    ofType="com.example.demo1.entities.PasirenkamasKursas"
+                    column="ID"
                     select="com.example.demo1.persistence.mybatis.KursasMapper.selectKursaiByStudentId"/>
     </resultMap>
 
     <select id="selectAllStudentas" resultMap="StudentasResultMap">
-        SELECT * FROM STUDENTAS
+        SELECT *
+        FROM STUDENTAS
+        ORDER BY ID
     </select>
 
     <select id="selectStudentasByGrupeId" resultMap="StudentasResultMap" parameterType="long">
-        SELECT * FROM STUDENTAS WHERE GRUPE_ID = #{id}
+        SELECT *
+        FROM STUDENTAS
+        WHERE GRUPE_ID = #{id}
+        ORDER BY ID
     </select>
 
     <select id="selectStudentasByKursasId" resultMap="StudentasResultMap" parameterType="long">
         SELECT s.*
         FROM STUDENTAS s
-        JOIN STUDENTAS_KURSAS sk ON s.ID = sk.STUDENTAS_ID
+                 JOIN STUDENTAS_KURSAS sk ON s.ID = sk.STUDENTAS_ID
         WHERE sk.KURSAS_ID = #{id}
+        ORDER BY s.ID
     </select>
 
     <insert id="insertStudentas" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO STUDENTAS (VARDAS, PAVADINIMAS, GRUPE_ID)
-        VALUES (#{vardas}, #{pavadinimas}, #{grupe.id})
+        INSERT INTO STUDENTAS (VARDAS, PAVARDE, GRUPE_ID)
+        VALUES (#{vardas}, #{pavarde}, #{grupe.id})
     </insert>
 
     <insert id="insertStudentasKursas">
