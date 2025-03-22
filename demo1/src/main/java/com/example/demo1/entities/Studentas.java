@@ -14,7 +14,9 @@ public class Studentas implements Serializable {
     private Long id;
 
     private String vardas;
-    private String pavadinimas;
+
+    @Column(name = "PAVARDE")
+    private String pavarde;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "GRUPE_ID")
@@ -27,19 +29,26 @@ public class Studentas implements Serializable {
     private List<PasirenkamasKursas> pasirenkamiKursai = new ArrayList<>();
 
     public Studentas() {}
-    public Studentas(String vardas, String pavadinimas) {
+
+    public Studentas(String vardas, String pavarde) {
         this.vardas = vardas;
-        this.pavadinimas = pavadinimas;
+        this.pavarde = pavarde;
     }
 
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
+
     public String getVardas() { return vardas; }
     public void setVardas(String vardas) { this.vardas = vardas; }
-    public String getPavadinimas() { return pavadinimas; }
-    public void setPavadinimas(String pavadinimas) { this.pavadinimas = pavadinimas; }
+
+    public String getPavarde() { return pavarde; }
+    public void setPavarde(String pavarde) { this.pavarde = pavarde; }
+
     public Grupe getGrupe() { return grupe; }
     public void setGrupe(Grupe grupe) { this.grupe = grupe; }
+
     public List<PasirenkamasKursas> getPasirenkamiKursai() { return pasirenkamiKursai; }
-    public void setPasirenkamiKursai(List<PasirenkamasKursas> pasirenkamiKursai) { this.pasirenkamiKursai = pasirenkamiKursai; }
+    public void setPasirenkamiKursai(List<PasirenkamasKursas> pasirenkamiKursai) {
+        this.pasirenkamiKursai = pasirenkamiKursai;
+    }
 }

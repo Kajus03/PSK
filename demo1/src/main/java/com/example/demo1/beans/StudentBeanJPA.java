@@ -40,7 +40,6 @@ public class StudentBeanJPA {
     }
 
     public String createStudent() {
-        // Surandame grupę pagal ID ir priskiriame naujam studentui
         if (selectedGrupeId != null) {
             Grupe g = grupeDAO.find(selectedGrupeId);
             newStudent.setGrupe(g);
@@ -61,24 +60,12 @@ public class StudentBeanJPA {
         return null;
     }
 
-    public Studentas getNewStudent() {
-        return newStudent;
-    }
-    public void setNewStudent(Studentas newStudent) {
-        this.newStudent = newStudent;
-    }
+    public Studentas getNewStudent() { return newStudent; }
+    public void setNewStudent(Studentas newStudent) { this.newStudent = newStudent; }
 
-    public Long getSelectedGrupeId() {
-        return selectedGrupeId;
-    }
-    public void setSelectedGrupeId(Long selectedGrupeId) {
-        this.selectedGrupeId = selectedGrupeId;
-    }
+    public Long getSelectedGrupeId() { return selectedGrupeId; }
+    public void setSelectedGrupeId(Long selectedGrupeId) { this.selectedGrupeId = selectedGrupeId; }
 
-    public List<Long> getSelectedKursaiIds() {
-        return selectedKursaiIds;
-    }
-    public void setSelectedKursaiIds(List<Long> selectedKursaiIds) {
-        this.selectedKursaiIds = selectedKursaiIds;
-    }
+    public List<Long> getSelectedKursaiIds() { return selectedKursaiIds; }
+    public void setSelectedKursaiIds(List<Long> selectedKursaiIds) { this.selectedKursaiIds = selectedKursaiIds; }
 }

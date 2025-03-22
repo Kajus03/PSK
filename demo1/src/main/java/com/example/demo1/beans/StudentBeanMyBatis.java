@@ -4,6 +4,7 @@ import com.example.demo1.entities.Studentas;
 import com.example.demo1.persistence.mybatis.GrupeDAOMyBatis;
 import com.example.demo1.persistence.mybatis.KursasDAOMyBatis;
 import com.example.demo1.persistence.mybatis.StudentDAOMyBatis;
+
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -49,8 +50,10 @@ public class StudentBeanMyBatis {
 
     public Studentas getNewStudent() { return newStudent; }
     public void setNewStudent(Studentas newStudent) { this.newStudent = newStudent; }
+
     public Long getSelectedGrupeId() { return selectedGrupeId; }
     public void setSelectedGrupeId(Long selectedGrupeId) { this.selectedGrupeId = selectedGrupeId; }
+
     public List<Long> getSelectedKursaiIds() { return selectedKursaiIds; }
     public void setSelectedKursaiIds(List<Long> selectedKursaiIds) { this.selectedKursaiIds = selectedKursaiIds; }
 }

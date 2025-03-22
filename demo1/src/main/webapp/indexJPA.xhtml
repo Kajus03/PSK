@@ -1,8 +1,27 @@
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 <h:head>
     <title>Puslapis – JPA</title>
+    <style>
+        .table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+        .table th {
+            background-color: #f2f2f2;
+            text-align: left;
+            padding: 8px;
+            border: 1px solid #ddd;
+        }
+        .table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+    </style>
 </h:head>
 <h:body>
     <h1>Visi duomenys (JPA)</h1>
@@ -11,7 +30,7 @@
     <br/><br/>
 
     <h2>Grupės</h2>
-    <h:dataTable value="#{grupeBeanJPA.allGroups}" var="g">
+    <h:dataTable value="#{grupeBeanJPA.allGroups}" var="g" styleClass="table">
         <h:column>
             <f:facet name="header">ID</f:facet>
             #{g.id}
@@ -26,7 +45,6 @@
         </h:column>
     </h:dataTable>
 
-    <h3>Pridėti naują grupę</h3>
     <h:form>
         <h:outputLabel for="kursas" value="Kursas: " />
         <h:inputText id="kursas" value="#{grupeBeanJPA.newGrupe.kursas}" />
@@ -40,7 +58,7 @@
     <hr/>
 
     <h2>Kursai</h2>
-    <h:dataTable value="#{kursasBeanJPA.allKursai}" var="c">
+    <h:dataTable value="#{kursasBeanJPA.allKursai}" var="c" styleClass="table">
         <h:column>
             <f:facet name="header">ID</f:facet>
             #{c.id}
@@ -51,7 +69,6 @@
         </h:column>
     </h:dataTable>
 
-    <h3>Pridėti naują kursą</h3>
     <h:form>
         <h:outputLabel for="pav" value="Pavadinimas: " />
         <h:inputText id="pav" value="#{kursasBeanJPA.newKursas.pavadinimas}" />
@@ -62,7 +79,7 @@
     <hr/>
 
     <h2>Studentai</h2>
-    <h:dataTable value="#{studentBeanJPA.allStudents}" var="s">
+    <h:dataTable value="#{studentBeanJPA.allStudents}" var="s" styleClass="table">
         <h:column>
             <f:facet name="header">ID</f:facet>
             #{s.id}
@@ -71,9 +88,10 @@
             <f:facet name="header">Vardas</f:facet>
             #{s.vardas}
         </h:column>
+        <!-- Čia vietoje "Pavadinimas" -> "Pavardė" -->
         <h:column>
-            <f:facet name="header">Pavadinimas</f:facet>
-            #{s.pavadinimas}
+            <f:facet name="header">Pavardė</f:facet>
+            #{s.pavarde}
         </h:column>
         <h:column>
             <f:facet name="header">Grupė</f:facet>
@@ -81,17 +99,21 @@
         </h:column>
         <h:column>
             <f:facet name="header">Kursai</f:facet>
-            #{s.pasirenkamiKursai.size()}
+            <h:panelGroup>
+                <ui:repeat value="#{s.pasirenkamiKursai}" var="kursas">
+                    #{kursas.pavadinimas}<br/>
+                </ui:repeat>
+            </h:panelGroup>
         </h:column>
     </h:dataTable>
 
-    <h3>Pridėti naują studentą</h3>
     <h:form>
         <h:outputLabel for="vardas" value="Vardas: " />
         <h:inputText id="vardas" value="#{studentBeanJPA.newStudent.vardas}" />
         <br/><br/>
-        <h:outputLabel for="pav" value="Pavadinimas: " />
-        <h:inputText id="pav" value="#{studentBeanJPA.newStudent.pavadinimas}" />
+        <!-- Čia vietoje "Pavadinimas" -> "Pavardė" -->
+        <h:outputLabel for="pavarde" value="Pavardė: " />
+        <h:inputText id="pavarde" value="#{studentBeanJPA.newStudent.pavarde}" />
         <br/><br/>
         <h:outputLabel for="grupe" value="Grupė: " />
         <h:selectOneMenu id="grupe" value="#{studentBeanJPA.selectedGrupeId}" required="true">
@@ -108,6 +130,5 @@
         <br/><br/>
         <h:commandButton value="Saugoti" action="#{studentBeanJPA.createStudent}" />
     </h:form>
-
 </h:body>
 </html>

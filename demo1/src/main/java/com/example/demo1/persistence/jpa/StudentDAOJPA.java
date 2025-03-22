@@ -17,12 +17,17 @@ public class StudentDAOJPA {
     }
 
     public List<Studentas> getAll() {
-        String jpql = "SELECT DISTINCT s FROM Studentas s LEFT JOIN FETCH s.pasirenkamiKursai";
+        // Pridedame ORDER BY s.id
+        String jpql = "SELECT DISTINCT s FROM Studentas s "
+                + "LEFT JOIN FETCH s.pasirenkamiKursai "
+                + "ORDER BY s.id";
         return em.createQuery(jpql, Studentas.class).getResultList();
     }
 
     public Studentas find(Long id) {
-        String jpql = "SELECT s FROM Studentas s LEFT JOIN FETCH s.pasirenkamiKursai WHERE s.id = :id";
+        String jpql = "SELECT s FROM Studentas s "
+                + "LEFT JOIN FETCH s.pasirenkamiKursai "
+                + "WHERE s.id = :id";
         return em.createQuery(jpql, Studentas.class)
                 .setParameter("id", id)
                 .getSingleResult();
